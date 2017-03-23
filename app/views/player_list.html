@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Kaikki rekisteröityneet pelaajat</h1>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Rekisteröitymispäivä</th>
+        <th>Ainejärjestö</th>
+        <th>Status</th>
+        <th>Viimeisin peli</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Listataan pelit tähän -->
+      <tr>
+        <td><a href="#">Nakki</a></td>
+        <td>01.01.2017</td>
+        <td>TKO-äly ry</td>
+        <td><label class="label label-danger">kuollut</label></td>
+        <td>01.01.2017</td>
+        <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a></th>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
