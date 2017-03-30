@@ -8,7 +8,7 @@ CREATE TABLE Location(
 CREATE TABLE Player(
 	id SERIAL PRIMARY KEY,
 	name varchar(50) NOT NULL,
-	password varchar(50) NOT NULL,
+	password varchar(255) NOT NULL,
 	organisation varchar(50)
 );
 

@@ -1,5 +1,5 @@
 <?php
-
+require ('lib/bcrypt.php');
 class Player extends BaseModel{
 
 	public $id, $name, $password, $organisation;
@@ -45,7 +45,9 @@ class Player extends BaseModel{
 
 	public function save(){
 		$query = DB::connection()->prepare('INSERT INTO Player (name, password, organisation) VALUES (:name, :password, :organisation) RETURNING id');
-		$query->execute(array('name' => $this->name, 'password' => $this->password, 'organisation' => $this->organisation));
+		$bcrypt = new Bcrypt(15);
+		$hash = $bcrypt->hash($this->password);
+		$query->execute(array('name' => $this->name, 'password' => $hash, 'organisation' => $this->organisation));
 		$row = $query->fetch();
 		Kint::trace();
 		Kint::dump($row);

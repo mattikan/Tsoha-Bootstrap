@@ -12,7 +12,7 @@ $routes->get('/player', function() {
 	PlayerController::index();
 });
 
-$routes->get('/player/new', function() {
+$routes->get('/registration', function() {
 	PlayerController::create();
 });
 
