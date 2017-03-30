@@ -9,13 +9,41 @@ $routes->get('/hiekkalaatikko', function() {
 });
 
 $routes->get('/player', function() {
-	HelloWorldController::player_list();
+	PlayerController::index();
 });
 
-$routes->get('/player/1', function() {
-	HelloWorldController::player_show();
+$routes->get('/player/new', function() {
+	PlayerController::create();
+});
+
+$routes->post('/player/', function() {
+	PlayerController::store();
+});
+
+$routes->get('/player/:id', function($id) {
+	PlayerController::show($id);
 });
 
 $routes->get('/login', function() {
 	HelloWorldController::login();
+});
+
+$routes->get('/game', function() {
+	GameController::index();
+});
+
+$routes->get('/game/:id', function($id){
+	GameController::show($id);
+});
+
+$routes->get('/game/new', function(){
+	GameController::create();
+});
+
+$routes->post('/game/', function(){
+	GameController::store();
+});
+
+$routes->get('/game/edit/:id', function(){
+	GameController::edit();
 });

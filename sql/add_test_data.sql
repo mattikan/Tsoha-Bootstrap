@@ -2,8 +2,8 @@
 INSERT INTO Location (name, description) VALUES ('Alina', 'Uudella sijaitseva tilava juhlasali.');
 INSERT INTO Location (name, description) VALUES ('Klusteri', 'Se tuttu ja turvallinen(?).');
 
-INSERT INTO Player (name, password) VALUES ('nakki', 'nakki123');
-INSERT INTO Player (name, password) VALUES ('kjarkko', 'roskis');
+INSERT INTO Player (name, password, organisation) VALUES ('nakki', 'nakki123', 'TKO-äly ry');
+INSERT INTO Player (name, password, organisation) VALUES ('kjarkko', 'roskis', 'Kumpulan roskakorit ry');
 
 INSERT INTO Game (confirmed, location_id, winning_team) values (true, (select id from Location where name like 'Alina'), 0);
 

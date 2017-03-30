@@ -8,16 +8,17 @@ CREATE TABLE Location(
 CREATE TABLE Player(
 	id SERIAL PRIMARY KEY,
 	name varchar(50) NOT NULL,
-	password varchar(50) NOT NULL
+	password varchar(50) NOT NULL,
+	organisation varchar(50)
 );
 
 CREATE TABLE Game(
 	id SERIAL PRIMARY KEY,
 	confirmed boolean DEFAULT FALSE,
-	played DATE,
+	played DATE NOT NULL DEFAULT CURRENT_DATE,
 	location_id INTEGER REFERENCES Location(id) ON UPDATE CASCADE,
-	added DATE,
-	winning_team INTEGER
+	added DATE NOT NULL DEFAULT CURRENT_DATE,
+	winning_team INTEGER NOT NULL
 );
 
 CREATE TABLE Participation(

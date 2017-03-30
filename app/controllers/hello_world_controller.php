@@ -9,7 +9,11 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      View::make('helloworld.html');
+      $game = Game::find(1);
+      $games = Game::all();
+
+      Kint::dump($games);
+      Kint::dump($game); 
     }
 
     public static function login() {

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Peli nro. {{game.id}}, {{game.played}}</h1>
+  <!-- Painikkeet tähän -->
+  <p>
+    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+  </p>
+  <!-- Tiedot tulee listana tähän -->
+  <ul>
+    <li><strong>Lisäyspäivä:</strong> {{game.added}}</li>
+    <li><strong>Pelipaikka:</strong> {{game.location_id}}</li>
+    <li><strong>Varmistettu:</strong> <label class="label label-danger">{{game.confirmed}}</label></li>
+    <li><strong>Voittajajoukkue:</strong> {{game.winning_team}}</li>
+  </ul>
+{% endblock %}
