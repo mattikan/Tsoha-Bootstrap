@@ -9,6 +9,8 @@ INSERT INTO Game (confirmed, location_id, winning_team) values (true, (select id
 
 INSERT INTO Game (confirmed, location_id, winning_team) values (true, (select id from Location where name like 'Klusteri'), 1);
 
+INSERT INTO Game (location_id, winning_team) values ((select id from Location where name like 'Alina'), 0);
+
 
 INSERT INTO Participation (player_id, game_id, team) values (
 	(select id from Player where name like 'nakki'),
