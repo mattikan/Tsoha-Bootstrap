@@ -43,13 +43,28 @@ class Player extends BaseModel{
 		return null;
 	}
 
+	public function check_validity(){
+		$errors = array();
+		if($this->name == '' || $this->name == null){
+			$errors[] = 'name must not be empty';
+		}
+		if (strlen($this->password) < 8){
+        	$errors[] = "Password too short!";
+    	}
+    	if (!preg_match("#[0-9]+#", $this->password)){
+        	$errors[] = "Password must include at least one number!";
+    	}
+    	if (!preg_match("#[a-zA-Z]+#", $this->password)) {
+        	$errors[] = "Password must include at least one letter!";
+		}
+		return $errors;
+	}
+
 	public function save(){
 		$query = DB::connection()->prepare('INSERT INTO Player (name, password, organisation) VALUES (:name, :password, :organisation) RETURNING id');
 		$bcrypt = new Bcrypt(15);
 		$hash = $bcrypt->hash($this->password);
 		$query->execute(array('name' => $this->name, 'password' => $hash, 'organisation' => $this->organisation));
 		$row = $query->fetch();
-		Kint::trace();
-		Kint::dump($row);
 	}
 }

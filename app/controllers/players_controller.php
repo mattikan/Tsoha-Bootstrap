@@ -27,7 +27,12 @@ class PlayerController extends BaseController{
 			'password' => $params['password'],
 			'organisation' => $params['organisation']
 		));
-		$player->save();
-	    Redirect::to('/player' . $player->id, array('message' => 'Uusi pelaaja luotu!'));
+		$errors = $player->check_validity();
+		if(count($errors) == 0) {
+			$player->save();
+	    	Redirect::to('/player' . $player->id, array('message' => 'Uusi pelaaja luotu!'));
+		} else {
+			View::make('player/new.html', array('errors' => $errors));
+		}
 	}
 }

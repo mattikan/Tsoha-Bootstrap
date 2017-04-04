@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+  {% if errors %}
+    <h2>Virheitä pelaajan luonnissa!</h2>
+      {% for error in errors %}
+        <p>{{error}}</p>
+      {% endfor %}
+  {% endif %}
   <h1>Luo uusi pelaaja</h1>
 
   <form method="post" action="{{base_path}}/player">
@@ -15,7 +21,7 @@
 
     <div class="form-group">
       <label>Salasana</label>
-      <input name="password" class="form-control" type="text">
+      <input name="password" class="form-control" type="password">
     </div>
 
     <div class="form-group">

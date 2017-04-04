@@ -16,17 +16,28 @@ class GameController extends BaseController{
 		View::make('game/edit.html', array('id' => $id));
 	}
 
+	public static function create(){
+		$locations = Location::all();
+		View::make('game/new.html', array('locations' => $locations));
+	}
+
 	public static function store(){
 		$params = $_POST;
+		$date = date_parse($params['played']);
+		foreach ($date as $value){
+			if ($value == false) {
+				$format = 'Ymd';
+	    		$date = date($format);
+				break;
+			}
+		}  
 		$game = new Game(array(
-			'id' => $row['id'],
-			'confirmed' => $row['confirmed'],
-			'played' => $row['played'],
-			'location_id' => $row['location_id'],
-			'added' => $row['added'],
-			'winning_team' => $row['winning_team']
+			'played' => $date,
+			'location_id' => $params['location_id'],
+			'winning_team' => $params['winning_team']
 		));
 		$game->save();
-	    Redirect::to('/game/' . $game->id, array('message' => 'Uusi peli luotu!'));
+		Redirect::to('/game' . $game->id, array('message' => 'Uusi peli luotu!'));
+		
 	}
 }

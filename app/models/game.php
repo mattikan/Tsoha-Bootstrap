@@ -47,11 +47,20 @@ class Game extends BaseModel{
 		return null;
 	}
 
+	public function check_validity(){
+		$errors = array();
+		if($this->confirmed != true || $this->confirmed != false) {
+			$errors[] = 'confirmed must be boolean';
+		}
+		if($this->winning_team != 0 || $this->winning_team != 1) {
+			$errors[] = 'winning team must be 0 or 1';
+		}
+		return $errors;
+	} 
+
 	public function save(){
-		$query = DB::connection()->prepare('INSERT INTO Game (confirmed, played, location_id, added, winning_team) VALUES (:confirmed, :played, :location_id, :added, :winning_team) RETURNING id');
-		$query->execute(array('confirmed' => $this->confirmed, 'played' => $this->played, 'location_id' => $this->location_id, 'added' => $this->added, 'winning_team' => $this->winning_team));
+		$query = DB::connection()->prepare('INSERT INTO Game (played, location_id, winning_team) VALUES (:played, :location_id, :winning_team) RETURNING id');
+		$query->execute(array('played' => $this->played, 'location_id' => $this->location_id, 'winning_team' => $this->winning_team));
 		$row = $query->fetch();
-		Kint::trace();
-		Kint::dump($row);
 	}
 }

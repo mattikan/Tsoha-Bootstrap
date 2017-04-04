@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if errors %}
+    <h2>Virheitä pelin luonnissa!</h2>
+      {% for error in errors %}
+        <p>{{error}}</p>
+      {% endfor %}
+  {% endif %}
+  <h1>Luo uusi peli</h1>
+
+  <form method="post" action="{{base_path}}/game">
+    <div class="form-group">
+      <label for="location">Pelipaikka</label>
+      <select class="form-control" id="location" name="location_id">
+          {% for location in locations %}
+            <option value={{location.id}}>{{location.name}}</option>
+          {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Pelipäivä (ei toimi firefoxissa, jätä tyhjäksi jos haluat tämän päivän)</label>
+      <input name="played" class="form-control" type="date">
+    </div>
+
+    <div class="form-group">
+      <label>Voittajajoukkue</label>
+      <div class="radio">
+        <label><input type="radio" name="winning_team" value="0">Me</label>
+      </div>
+      <div class="radio">
+        <label><input type="radio" name="winning_team" value="1">Muut</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Lisää</button>
+    </div>
+  </form>
+{% endblock %}
