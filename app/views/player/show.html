@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{player.name}}</h1>
+  <!-- Painikkeet tähän -->
+  {% if get_user_logged_in == player %}
+  <p>
+    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+  </p>
+  {% endif %}
+  <!-- Tiedot tulee listana tähän -->
+  <ul>
+    <li><strong>Järjestö:</strong> {{player.organisation}}</li>
+    <li><strong>Elo-ranking:</strong> TODO</li>
+  </ul>
+{% endblock %}

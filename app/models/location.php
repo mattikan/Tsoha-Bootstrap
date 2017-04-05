@@ -26,7 +26,7 @@ class Location extends BaseModel{
 	}
 
 	public static function find($id){
-		$query = DB::connection()->prepare('SELECT * FROM Location WHERE id = :id LIMIT 1');
+		$query = DB::connection()->prepare('SELECT * FROM Location WHERE id = :id');
 	    $query->execute(array('id' => $id));
 		$row = $query->fetch();
 
@@ -39,6 +39,11 @@ class Location extends BaseModel{
 			return $location;
 		}
 		return null;
+	}
+
+	public static function destroy($id){
+		$query = DB::connection()->prepare('DELETE FROM Location WHERE id = :id');
+	    $query->execute(array('id' => $id));
 	}
 
 	public function check_validity(){

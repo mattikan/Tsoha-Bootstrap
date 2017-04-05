@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if errors %}
+    <h2>Kirjautuminen epäonnistui!</h2>
+      {% for error in errors %}
+        <p>{{error}}</p>
+      {% endfor %}
+  {% endif %}
+  <h1>Kirjaudu sisään</h1>
+
+  <form method="post" action="{{base_path}}/login">
+    <div class="form-group">
+      <label>Nimi</label>
+      <input name="name" class="form-control" type="text">
+    </div>
+
+    <div class="form-group">
+      <label>Salasana</label>
+      <input name="password" class="form-control" type="password">
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Lisää</button>
+    </div>
+  </form>
+{% endblock %}

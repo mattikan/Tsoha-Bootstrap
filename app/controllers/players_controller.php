@@ -35,4 +35,19 @@ class PlayerController extends BaseController{
 			View::make('player/new.html', array('errors' => $errors));
 		}
 	}
+
+	public static function login(){
+		View::make('player/login.html');
+	}
+
+	public static function handle_login(){
+		$params = $_POST;
+		$player = Player::authenticate($params['name'], $params['password']);
+		if(!$player){
+			View::make('player/login.html', array('errors' => 'Väärä käyttäjätunnus tai salasana!', 'name' => $params['name']));
+		}else{
+			$_SESSION['userid'] = $player->id;
+			Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $user->name . '!'));
+		}
+	}
 }

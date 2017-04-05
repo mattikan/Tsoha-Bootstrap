@@ -8,6 +8,14 @@ $routes->get('/hiekkalaatikko', function() {
 	HelloWorldController::sandbox();
 });
 
+$routes->get('/login', function() {
+	PlayerController::login();
+});
+
+$routes->post('/login', function(){
+	PlayerController::handle_login();
+});
+
 $routes->get('/player', function() {
 	PlayerController::index();
 });

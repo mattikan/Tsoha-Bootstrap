@@ -13,7 +13,7 @@ class Player extends BaseModel{
 		$query->execute();
 
 		$rows = $query->fetchAll();
-		$games = array();
+		$players = array();
 
 		foreach($rows as $row){
 			$players[] = new Player(array(
@@ -27,7 +27,7 @@ class Player extends BaseModel{
 	}
 
 	public static function find($id){
-		$query = DB::connection()->prepare('SELECT * FROM Player WHERE id = :id LIMIT 1');
+		$query = DB::connection()->prepare('SELECT * FROM Player WHERE id = :id');
 	    $query->execute(array('id' => $id));
 		$row = $query->fetch();
 
@@ -41,6 +41,11 @@ class Player extends BaseModel{
 			return $player;
 		}
 		return null;
+	}
+
+	public static function destroy($id){
+		$query = DB::connection()->prepare('DELETE FROM Player WHERE id = :id');
+	    $query->execute(array('id' => $id));
 	}
 
 	public function check_validity(){
@@ -66,5 +71,24 @@ class Player extends BaseModel{
 		$hash = $bcrypt->hash($this->password);
 		$query->execute(array('name' => $this->name, 'password' => $hash, 'organisation' => $this->organisation));
 		$row = $query->fetch();
+	}
+
+	public static function authenticate($name, $password){
+		$bcrypt = new Bcrypt(15);
+		$hash = $bcrypt->hash($password);
+		$query = DB::connection()->prepare('SELECT * FROM Player WHERE name = :name AND password = :password LIMIT 1');
+		$query->execute(array('name' => $name, 'password' => $hash));
+		$row = $query->fetch();
+		if($row){
+			$player = new Player(array(
+				'id' => $row['id'],
+				'name' => $row['name'],
+				'password' => $row['password'],
+				'organisation' => $row['organisation']
+			));
+			return $player;
+		}else{
+			return null;
+		}
 	}
 }
