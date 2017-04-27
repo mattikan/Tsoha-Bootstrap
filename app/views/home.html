@@ -5,8 +5,11 @@
     <h1>Tervetuloa Pångrankingiin!</h1>
   </div>
 
+  {% if message %}
+    <h2>{{message}}</h2>
+  {% endif %}
+  
   <p>
-  	Etusivu on vielä vaiheessa, mutta näet mallit kaikkien pelaajien listaukselle ja yhden pelaajan tarkastelulle navigointipalkin linkeistä.
-  	Siellä tulee jatkossa olemaan linkit menneiden pelien ja kaikkien pelaajien tarkastelulle, ja niiltä sivuilta pitäisi päästä tarkastelemaan yksittäisiä pelaajia ja pelejä, sekä luomaan uusia matseja.
+  	Etusivu on vielä vaiheessa, mutta navigaatiopalkin linkeistä pääset eri sivuille.
   </p>
 {% endblock %}

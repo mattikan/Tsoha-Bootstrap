@@ -1,5 +1,6 @@
 <?php
 require ('lib/bcrypt.php');
+require ('lib/password.php');
 class Player extends BaseModel{
 
 	public $id, $name, $password, $organisation;
@@ -67,15 +68,13 @@ class Player extends BaseModel{
 
 	public function save(){
 		$query = DB::connection()->prepare('INSERT INTO Player (name, password, organisation) VALUES (:name, :password, :organisation) RETURNING id');
-		$bcrypt = new Bcrypt(15);
-		$hash = $bcrypt->hash($this->password);
+		$hash = password_hash($this->password, PASSWORD_BCRYPT);
 		$query->execute(array('name' => $this->name, 'password' => $hash, 'organisation' => $this->organisation));
 		$row = $query->fetch();
 	}
 
 	public static function authenticate($name, $password){
-		$bcrypt = new Bcrypt(15);
-		$hash = $bcrypt->hash($password);
+		$hash = password_hash($password, PASSWORD_BCRYPT);
 		$query = DB::connection()->prepare('SELECT * FROM Player WHERE name = :name AND password = :password LIMIT 1');
 		$query->execute(array('name' => $name, 'password' => $hash));
 		$row = $query->fetch();
