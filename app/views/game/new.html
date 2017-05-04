@@ -19,8 +19,27 @@
     </div>
 
     <div class="form-group">
-      <label>Pelipäivä (ei toimi firefoxissa, jätä tyhjäksi jos haluat tämän päivän)</label>
+      <label>Pelipäivä (ei toimi firefoxissa, jätä tyhjäksi jos haluat tämän päivän!)</label>
       <input name="played" class="form-control" type="date">
+    </div>
+
+    <div class="form-group">
+      <label for="player2">Vastapelaaja</label>
+      <select class="form-control" id="player2" name="player2">
+        {% for player in players %}
+          <option value={{player.id}}>{{player.name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Vastapelaajan salasana</label>
+      <input name="player2-password" class="form-control" type="password">
+    </div>
+
+    <div class="form-group">
+      <label for="cups_left">Voittajan heittämättömät kupit</label>
+      <input name="cups_left" class="form-control" type="number" min="1" max="10">
     </div>
 
     <div class="form-group">

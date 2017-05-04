@@ -2,7 +2,7 @@
 
 class Game extends BaseModel{
 
-	public $id, $confirmed, $played, $location_id, $added, $winning_team;
+	public $id, $confirmed, $played, $location_id, $added, $winning_team, $cups_left;
 
 	public function __construct($attributes){
 		parent::__construct($attributes);
@@ -22,7 +22,8 @@ class Game extends BaseModel{
 				'played' => $row['played'],
 				'location_id' => $row['location_id'],
 				'added' => $row['added'],
-				'winning_team' => $row['winning_team']
+				'winning_team' => $row['winning_team'],
+				'cups_left' => $row['cups_left']
 			));
 		}
 		return $games;
@@ -40,7 +41,8 @@ class Game extends BaseModel{
 				'played' => $row['played'],
 				'location_id' => $row['location_id'],
 				'added' => $row['added'],
-				'winning_team' => $row['winning_team']
+				'winning_team' => $row['winning_team'],
+				'cups_left' => $row['cups_left']
 			));
 			return $game;
 		}
@@ -64,8 +66,14 @@ class Game extends BaseModel{
 	} 
 
 	public function save(){
-		$query = DB::connection()->prepare('INSERT INTO Game (played, location_id, winning_team) VALUES (:played, :location_id, :winning_team) RETURNING id');
-		$query->execute(array('played' => $this->played, 'location_id' => $this->location_id, 'winning_team' => $this->winning_team));
+		$query = DB::connection()->prepare('INSERT INTO Game (played, location_id, winning_team, cups_left) VALUES (:played, :location_id, :winning_team, :cups_left) RETURNING id');
+		$query->execute(array('played' => $this->played, 'location_id' => $this->location_id, 'winning_team' => $this->winning_team, 'cups_left' => $this->cups_left));
+		$row = $query->fetch();
+	}
+
+	public function update(){
+		$query = DB::connection()->prepare('UPDATE Game SET played = :played, location_id = :location_id, winning_team = :winning_team, cups_left = :cups_left WHERE id = :id');
+		$query->execute(array('played' => $this->played, 'location_id' => $this->location_id, 'winning_team' => $this->winning_team, 'cups_left' => $this->cups_left, 'id' => $this->id));
 		$row = $query->fetch();
 	}
 }
