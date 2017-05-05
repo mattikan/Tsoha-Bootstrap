@@ -48,7 +48,6 @@ class GameController extends BaseController{
 			$player1 = BaseController::get_user_logged_in();
 			$player2 = Player::find($params['player2']);
 			PlayerController::update_ratings($player1, $player2, $params['winning_team']);
-
 			Redirect::to('/player', array('message' => 'Uusi peli luotu ja rankingit päivitetty!'));
 			
 		}
